@@ -1,22 +1,62 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,300;1,400&display=swap');
 
-body{
+/*GENERAL STYLE*/
+/*style for the entire web (font, background color and text color)*/
+* {
     font-family: 'Roboto';
+    background-color: #282a36;
+    color: #f8f8f2;
 }
+/*END GENERAL STYLE*/
 
-.topNavbar{
-    width: 100%;
-    nav-right: auto;
+/* TOP NAVIGATION BAR*/
+/* Header -> using flexbox to set the elements in the right position*/
+header {
     display: flex;
-    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 10%;
+    font-size: large;
 }
 
+/* the nav in the header (I wanted to separate it from the footer with a class) */
+.topNavbar {
+    margin: 0;
+    padding: 0;
+    nav-right: auto;
+}
+
+/*LINKS*/
+/* styling the links in the navbar*/
+.topNavLinks li {
+    display: inline-block;
+    padding: 0px 20px;
+    transition: all 0.3s ease 0;
+}
+
+/* <a> style */
 .topNavbar a{
-    border: solid 1px black;
-    padding:0px 10px 0px 10px;
     text-decoration: none;
 }
 
-a{
-    color: black;
+/* a Hover for the links */
+.topNavbar li :hover{
+    color: #ff79c6;
 }
+
+.topNavLinks {
+    list-style: none;
+}
+
+/* END LINKS */
+
+/*LOGO*/
+/* seting correct values to the logo */
+#logo {
+    max-height: 6em;
+    max-width: fit-content;
+    cursor: pointer;
+}
+/* END LOGO */
+
+/* END TOP NAVIGATION BAR */
