@@ -4,19 +4,33 @@
 /*style for the entire web (font, background color and text color)*/
 * {
     font-family: 'Roboto';
-    background-color: #282a36;
     color: #f8f8f2;
+}
+
+body {
+    background-color: #282a36;
+    background-image: url(imgs/background2_pan.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
 }
 /*END GENERAL STYLE*/
 
 /* TOP NAVIGATION BAR*/
 /* Header -> using flexbox to set the elements in the right position*/
 header {
+    background-color: black;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 10%;
-    font-size: large;
+    padding: 0px 10%; 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 /* the nav in the header (I wanted to separate it from the footer with a class) */
@@ -31,16 +45,35 @@ header {
 .topNavLinks li {
     display: inline-block;
     padding: 0px 20px;
-    transition: all 0.3s ease 0;
 }
 
 /* <a> style */
-.topNavbar a{
+.topNavLinks li a {
+    transition: all 0.3s ease 0s;
     text-decoration: none;
+    position: relative;
+    font-size: 20px;
+}
+
+/* <a> after style */
+.topNavLinks li a::after {
+    content: '';
+    background-color: #ff79c6;
+    width: 0;
+    height: 3px;
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    transition: 0.3s;
+}
+
+/* <a> after hover */
+.topNavLinks li a:hover::after {
+    width: 100%;
 }
 
 /* a Hover for the links */
-.topNavbar li :hover{
+.topNavbar li a:hover{
     color: #ff79c6;
 }
 
@@ -53,10 +86,40 @@ header {
 /*LOGO*/
 /* seting correct values to the logo */
 #logo {
-    max-height: 6em;
+    max-height: 4em;
     max-width: fit-content;
     cursor: pointer;
 }
 /* END LOGO */
 
 /* END TOP NAVIGATION BAR */
+
+/* CONTENT */
+/* COMMON CONTENT STYLE */
+section img {
+    max-width: 40%;
+}
+
+.content{
+    margin-top: 6em;
+}
+
+section{
+    background-image: linear-gradient(RGBA(40, 42, 54, 0.8), RGBA(40, 42, 54, 1));
+    margin: 3% 10% ;
+    padding: 2em;
+    border-radius: 2em;
+    display: flex;
+}
+
+section p{
+    font-size: 12px;
+}
+/* END COMMON CONTENT STYLE */
+/* HOME */
+
+
+
+/* END HOME */
+
+/* END CONTENT */
