@@ -5,58 +5,80 @@
 * {
     font-family: 'Roboto';
     color: #f8f8f2;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body {
-    background-color: #282a36;
+body { 
     background-image: url(imgs/background4_pan.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    /*background-size: 100% 100%;*/
 }
 
 /*END GENERAL STYLE*/
 
 /* TOP NAVIGATION BAR*/
 /* Header -> using flexbox to set the elements in the right position*/
+
 header {
-    background-color: black;
     position: fixed;
     width: 100%;
     top: 0;
-    left: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 10%;
+    background: black;
+    padding: 0 2.5em;
+    transition: 0.3s;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-/* the nav in the header (I wanted to separate it from the footer with a class) */
-.topNavbar {
-    margin: 0;
-    padding: 0;
+#logo a{
+    display: block;
+}
+
+#logo {
+    max-height: 4em;
+    max-width: fit-content;
+    cursor: pointer;
+    display: block;
+}
+
+/* The nav in the header */
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /*LINKS*/
 /* styling the links in the navbar*/
-.topNavLinks li {
-    display: inline-block;
-    padding: 0px 20px;
+.menu {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    z-index: 1;
+    transition: 0.5;
 }
 
-/* <a> style */
-.topNavLinks li a {
-    transition: all 0.3s ease 0s;
+.menu li{
+    list-style: none;
+    padding: 1.5em 0.75em;
+}
+
+.menu li a{
+    display: block;
     text-decoration: none;
+    font-size: 1.2em;
     position: relative;
-    font-size: 20px;
+    transition: all 0.3s ease 0s;
 }
 
-/* <a> after style */
-.topNavLinks li a::after {
+.menu li a::after {
     content: '';
     background-color: #ff79c6;
     width: 0;
@@ -67,18 +89,12 @@ header {
     transition: 0.3s;
 }
 
-/* <a> after hover */
-.topNavLinks li a:hover::after {
+.menu li a:hover::after {
     width: 100%;
 }
 
-/* a Hover for the links */
-.topNavbar li a:hover {
+.navigation li a:hover {
     color: #ff79c6;
-}
-
-.topNavLinks {
-    list-style: none;
 }
 
 /* HAMBURGER */
@@ -88,6 +104,7 @@ header {
     height: 0.3em;
     background: #f8f8f2;
     border-radius: 2em;
+    cursor: pointer;
     z-index: 2;
     right: 3em;
     transition: 0.3s;
@@ -97,6 +114,8 @@ header {
     content: "";
     position: absolute;
     height: 0.3em;
+    width: 2.5em;
+    right: 0;
     background: #f8f8f2;
     border-radius: 2em;
     transition: 0.3s;
@@ -105,15 +124,13 @@ header {
 
 .hamburger::before {
     top: -1em;
-    width: 2.5em;
 }
 
 .hamburger::after {
     top: 1em;
-    width: 2.5em;
 }
 
-
+/* the checkbox*/
 .toggle-menu{
     position: absolute;
     width: 3em;
@@ -146,8 +163,9 @@ header input:checked ~ .hamburger::after {
     width: 2.5em;
 }
 
-header input:checked ~ nav .topNavbar{
+header input:checked ~ .menu{
     right: 0;
+    box-shadow: -1em 0 2em rgba(0,0,0,0.2);
 }
 
 @media screen and (max-width: 660px) {
@@ -159,7 +177,10 @@ header input:checked ~ nav .topNavbar{
         padding: 1em 2em;
     }
 
-    .topNavbar{
+    .menu{
+        justify-content: start;
+        flex-direction: column;
+        align-items: center;
         position: fixed;
         top: 0;
         right: -15em;
@@ -169,13 +190,11 @@ header input:checked ~ nav .topNavbar{
         padding-top: 5em;
     }
 
-    .topNavLinks{
-        justify-content: start;
-        flex-direction: column;
-        align-items: center;
+    .manu li{
+        width: 100%;
     }
 
-    .topNavbar li {
+    .manu li a{
         padding: 1em;
     }
 
