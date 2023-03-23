@@ -14,8 +14,9 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-size: 100% 100%;
+    /*background-size: 100% 100%;*/
 }
+
 /*END GENERAL STYLE*/
 
 /* TOP NAVIGATION BAR*/
@@ -29,7 +30,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 10%; 
+    padding: 0px 10%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -37,7 +38,6 @@ header {
 .topNavbar {
     margin: 0;
     padding: 0;
-    nav-right: auto;
 }
 
 /*LINKS*/
@@ -73,13 +73,115 @@ header {
 }
 
 /* a Hover for the links */
-.topNavbar li a:hover{
+.topNavbar li a:hover {
     color: #ff79c6;
 }
 
 .topNavLinks {
     list-style: none;
 }
+
+/* HAMBURGER */
+.hamburger {
+    position: relative;
+    width: 2.5em;
+    height: 0.3em;
+    background: #f8f8f2;
+    border-radius: 2em;
+    z-index: 2;
+    right: 3em;
+    transition: 0.3s;
+}
+
+.hamburger::before, .hamburger::after {
+    content: "";
+    position: absolute;
+    height: 0.3em;
+    background: #f8f8f2;
+    border-radius: 2em;
+    transition: 0.3s;
+}
+
+
+.hamburger::before {
+    top: -1em;
+    width: 2.5em;
+}
+
+.hamburger::after {
+    top: 1em;
+    width: 2.5em;
+}
+
+
+.toggle-menu{
+    position: absolute;
+    width: 3em;
+    height: 3em;
+    z-index: 3;
+    opacity: 0;
+    cursor: pointer;
+    top: 2em;
+    right: 5.8em;
+    border: #ff79c6 solid 1px;
+}
+
+.toggle-menu ,.hamburger{
+    display: none;
+}
+
+header input:checked ~ .hamburger {
+    background: transparent;
+}
+
+header input:checked ~ .hamburger::before {
+    top: 0;  
+    transform: rotate(-45deg); 
+    width: 2.5em;
+}
+
+header input:checked ~ .hamburger::after {
+    top: 0;  
+    transform: rotate(45deg); 
+    width: 2.5em;
+}
+
+header input:checked ~ nav .topNavbar{
+    right: 0;
+}
+
+@media screen and (max-width: 660px) {
+    .hamburger, .toggle-menu{
+        display: block;
+    }
+    
+    header{
+        padding: 1em 2em;
+    }
+
+    .topNavbar{
+        position: fixed;
+        top: 0;
+        right: -15em;
+        background: black;
+        width: 30%;
+        height: 100%;
+        padding-top: 5em;
+    }
+
+    .topNavLinks{
+        justify-content: start;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .topNavbar li {
+        padding: 1em;
+    }
+
+}
+
+/* END HAMBURGER */
 
 /* END LINKS */
 
@@ -90,6 +192,7 @@ header {
     max-width: fit-content;
     cursor: pointer;
 }
+
 /* END LOGO */
 
 /* END TOP NAVIGATION BAR */
@@ -99,17 +202,19 @@ header {
 section img {
     max-width: 100%;
 }
+
 section .img {
     max-width: 40%;
 }
-.content{
+
+.content {
     margin-top: 6em;
 }
 
-section{
+section {
     background-image: linear-gradient(RGBA(40, 42, 54, 0.8), RGBA(40, 42, 54, 1));
     height: 37em;
-    margin: 0 10% ;
+    margin: 0 10%;
     padding: 2em;
     border-radius: 2em;
     display: flex;
@@ -117,14 +222,15 @@ section{
     align-items: center;
 }
 
-.spaceDiv{
+.spaceDiv {
     width: 2px;
     height: 5em;
 }
 
-section p{
+section p {
     font-size: 12px;
 }
+
 /* END COMMON CONTENT STYLE */
 /* HOME */
 
@@ -136,7 +242,7 @@ section p{
 
 /* FOOTER */
 
-footer img{
+footer img {
     max-width: 3em;
 }
 
