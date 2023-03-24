@@ -10,7 +10,7 @@
     box-sizing: border-box;
 }
 
-body { 
+body {
     background-color: #282a36;
     background-image: url(imgs/background4_pan.png);
     background-size: cover;
@@ -37,7 +37,7 @@ header {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#logo a{
+#logo a {
     display: block;
 }
 
@@ -68,12 +68,12 @@ header {
     transition: 0.5;
 }
 
-.menu li{
+.menu li {
     list-style: none;
     padding: 1.5em 0.75em;
 }
 
-.menu li a{
+.menu li a {
     display: block;
     text-decoration: none;
     font-size: 1.2em;
@@ -113,7 +113,8 @@ header {
     transition: 0.3s;
 }
 
-.hamburger::before, .hamburger::after {
+.hamburger::before,
+.hamburger::after {
     content: "";
     position: absolute;
     height: 0.3em;
@@ -134,7 +135,7 @@ header {
 }
 
 /* the checkbox*/
-.toggle-menu{
+.toggle-menu {
     position: absolute;
     width: 3em;
     height: 3em;
@@ -146,41 +147,44 @@ header {
     border: #ff79c6 solid 1px;
 }
 
-.toggle-menu ,.hamburger{
+.toggle-menu,
+.hamburger {
     display: none;
 }
 
-header input:checked ~ .hamburger {
+header input:checked~.hamburger {
     background: transparent;
 }
 
-header input:checked ~ .hamburger::before {
-    top: 0;  
-    transform: rotate(-45deg); 
+header input:checked~.hamburger::before {
+    top: 0;
+    transform: rotate(-45deg);
     width: 2.5em;
 }
 
-header input:checked ~ .hamburger::after {
-    top: 0;  
-    transform: rotate(45deg); 
+header input:checked~.hamburger::after {
+    top: 0;
+    transform: rotate(45deg);
     width: 2.5em;
 }
 
-header input:checked ~ .menu{
+header input:checked~.menu {
     right: 0;
-    box-shadow: -1em 0 2em rgba(0,0,0,0.2);
+    box-shadow: -1em 0 2em rgba(0, 0, 0, 0.2);
 }
 
 @media screen and (max-width: 660px) {
-    .hamburger, .toggle-menu{
+
+    .hamburger,
+    .toggle-menu {
         display: block;
     }
-    
-    header{
+
+    header {
         padding: 1em 2em;
     }
 
-    .menu{
+    .menu {
         justify-content: start;
         flex-direction: column;
         align-items: center;
@@ -193,11 +197,11 @@ header input:checked ~ .menu{
         padding-top: 5em;
     }
 
-    .manu li{
+    .manu li {
         width: 100%;
     }
 
-    .manu li a{
+    .manu li a {
         padding: 1em;
     }
 
@@ -224,10 +228,12 @@ header input:checked ~ .menu{
 section img {
     width: 100%;
     max-width: 25em;
+    border-radius: 2em;
 }
 
 section .img {
     max-width: 40%;
+
 }
 
 .content {
@@ -268,6 +274,7 @@ section p {
     section img {
         width: 100%;
         max-width: 100%;
+        margin-top: -2em;
     }
 
     section .img {
@@ -277,6 +284,56 @@ section p {
 
 
 /* END COMMON CONTENT STYLE */
+
+/* ABOUT */
+
+#about {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+#about .about-content {
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+}
+
+.about-text {
+    width: 60%;
+}
+
+#about p {
+    margin: 1em 0;
+}
+
+#about .img {
+    width: 40%;
+    margin: 1em;
+}
+
+
+@media screen and (max-width: 660px) {
+
+    #about .about-content {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .about-text {
+        width: 100%;
+    }
+
+    #about .img {
+        width: 100%;
+    }
+}
+
+/* END ABOUT */
+
 /* CONTACT */
 
 #contact {
@@ -286,13 +343,14 @@ section p {
 }
 
 form {
-    width: 50%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    padding-right: 1em;
 }
 
-form div{
+form div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -300,6 +358,22 @@ form div{
 
 form p {
     padding-top: 1em;
+}
+
+.social-media {
+    margin: 0 auto;
+}
+
+.social-media p {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin: 0 auto;
+}
+
+.social-media img {
+    max-width: 2em;
+    margin: 1em;
 }
 
 .input-field {
@@ -318,19 +392,58 @@ form textarea {
 }
 
 
+
+/* Button */
+.button {
+    background-color: #4CAF50;
+    /* Green */
+    text-align: center;
+    padding: 0.75em 0;
+    margin: 1.2em 0 0 0;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    color: #282a36;
+    border: none;
+    border-radius: 0.3em;
+}
+
+.button:hover {
+    background-color: #50fa7b;
+}
+
+/* end Button */
+
 @media screen and (max-width: 660px) {
-    form div{
+    form div {
         flex-direction: column;
     }
 
     form {
-        margin: -3em;
+        margin: -3em 0 0 0;
         width: 100%;
     }
 
     .input-field {
         width: 100%;
     }
+
+    .button h2 {
+        color: #282a36;
+        font-size: 1.2em;
+    }
+
+    /* Button */
+    .button {
+        margin: 1.5em 0.5em 0 0.5em;
+        width: 100%;
+    }
+
+    /* end Button */
+
+
 }
 
 /* END CONTACT */
@@ -341,6 +454,13 @@ form textarea {
 
 footer img {
     max-width: 3em;
+}
+
+footer {
+    right: 0;
+    left: 0;
+    background: #282a36;
+    margin-top: 3em;
 }
 
 /* END FOOTER*/
