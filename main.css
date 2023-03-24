@@ -343,6 +343,7 @@ section p {
 }
 
 form {
+    max-width: 30em;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -452,6 +453,7 @@ form textarea {
 /* FOOTER */
 
 footer img {
+    margin-left: 2em;
     max-width: 3em;
 }
 
@@ -464,6 +466,18 @@ footer {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+
+.footer-social-media {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 2em;
+}
+
+.copyright-link {
+    margin-left: 3em;
 }
 
 /* END FOOTER*/

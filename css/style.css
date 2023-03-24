@@ -1,6 +1,22 @@
+/* COPYRIGHT PAGE*/
+
 #copyright {
     margin-top: 6em;
     display: flex;
     align-items: center;
     flex-direction: column;
 }
+
+/* END COPYRIGHT PAGE*/
+
+/* PROJECTS PAGE*/
+
+#projects-main-section {
+    margin-top: 6em;
+}
+
+#projects-main-section section{
+    margin: 3em;
+}
+
+/* END PROJECTS PAGE*/
