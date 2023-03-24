@@ -236,7 +236,7 @@ section .img {
 
 section {
     background-image: linear-gradient(RGBA(40, 42, 54, 0.8), RGBA(40, 42, 54, 1));
-    height: 37em;
+    min-height: 37em;
     margin: 0 10%;
     padding: 2em;
     border-radius: 2em;
@@ -262,8 +262,16 @@ section p {
 
 @media screen and (max-width: 660px) {
     section {
-        display: flex;
-        
+        flex-direction: column-reverse;
+    }
+
+    section img {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    section .img {
+        max-width: 100%;
     }
 }
 
@@ -295,7 +303,8 @@ form p {
 }
 
 .input-field {
-    min-height: 1.5em;
+    color: #282a36;
+    min-height: 2em;
     width: 69%;
     margin: 1em 0 0 1em;
     padding: 0 0.5em;
