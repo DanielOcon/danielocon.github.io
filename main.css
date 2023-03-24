@@ -334,6 +334,14 @@ section p {
 
 /* END ABOUT */
 
+/* PROJECTS */
+
+#project img {
+    margin: 1em;
+}
+
+/* END PROJECTS */
+
 /* CONTACT */
 
 #contact {

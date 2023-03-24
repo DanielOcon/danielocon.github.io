@@ -23,4 +23,20 @@
     margin: 2em;
 }
 
+#projects-main-section h1{
+    margin-bottom: 2em;
+}
+
+.projects-text-content {
+    margin-left: 2em;
+}
+
+
+@media screen and (max-width: 660px) {
+    
+#projects-main-section img{
+    margin: 2em 0 0 0;
+}
+}
+
 /* END PROJECTS PAGE*/
