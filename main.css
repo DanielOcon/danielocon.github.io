@@ -11,6 +11,7 @@
 }
 
 body { 
+    background-color: #282a36;
     background-image: url(imgs/background4_pan.png);
     background-size: cover;
     background-position: center;
@@ -44,7 +45,9 @@ header {
     max-height: 4em;
     max-width: fit-content;
     cursor: pointer;
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* The nav in the header */
@@ -219,7 +222,8 @@ header input:checked ~ .menu{
 /* CONTENT */
 /* COMMON CONTENT STYLE */
 section img {
-    max-width: 100%;
+    width: 100%;
+    max-width: 25em;
 }
 
 section .img {
@@ -247,15 +251,80 @@ section {
 }
 
 section p {
-    font-size: 12px;
+    font-size: 1em;
+    line-height: 1.8;
 }
 
+.content h1 {
+    font-size: 2em;
+    padding: 2em 0;
+}
+
+@media screen and (max-width: 660px) {
+    section {
+        display: flex;
+        
+    }
+}
+
+
 /* END COMMON CONTENT STYLE */
-/* HOME */
+/* CONTACT */
+
+#contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+form div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+form p {
+    padding-top: 1em;
+}
+
+.input-field {
+    min-height: 1.5em;
+    width: 69%;
+    margin: 1em 0 0 1em;
+    padding: 0 0.5em;
+    border: solid #f8f8f2 1px;
+    border-radius: 0.3em;
+    outline: none;
+}
+
+form textarea {
+    min-height: 6em;
+}
 
 
+@media screen and (max-width: 660px) {
+    form div{
+        flex-direction: column;
+    }
 
-/* END HOME */
+    form {
+        margin: -3em;
+        width: 100%;
+    }
+
+    .input-field {
+        width: 100%;
+    }
+}
+
+/* END CONTACT */
 
 /* END CONTENT */
 
