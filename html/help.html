@@ -29,17 +29,41 @@
         <section class="projects-page" id="project1">
             <div class="img"><img src="../imgs/OconMusicAnalysisGUI.PNG" alt="app gui"></div>
             <div class="projects-text-content">
-                <h1>Help</h1>
-                <p>This is how the app works.</p>
-                <p>Ocon Music analysis app works very straight foroward:</p>
-                <p></p>
-                <p>Step 1: click on the analysis button.</p>
-                <p></p>
-                <p>Step 2: Select the audio file that you want to make an analysis.</p>
-                <p></p>
-                <p>Step 3: Wait until the graphics show up (It might take a while).</p>
-                <p></p>
-                <p>Done</p>
+                <h1>Ayuda</h1>
+                <p>Este es un programa de análisis musical en Python, que permite al usuario analizar archivos de audio
+                    seleccionados y agregar notas. Las notas y los resultados del análisis se pueden guardar en un
+                    archivo de texto. El programa también tiene un botón para acceder a una página de ayuda en línea.
+                </p><br><br>
+                <p>Para usar el programa, siga estos pasos:</p><br>
+                <ol style="margin-left: 70px;">
+                    <li>Ejecute el archivo "Main.py" en Python.</li>
+                    <li>La ventana principal de la aplicación aparecerá. El título de la aplicación es "Ocón Análisis
+                        Musical".</li>
+                    <li>Para agregar una nota, ingrese el texto en el campo de entrada ubicado debajo del marco
+                        desplazable y presione el botón "Añadir nota". La nota aparecerá en el marco desplazable.</li>
+                    <li>Para analizar un archivo de audio, presione el botón "Analizar". Se abrirá un cuadro de diálogo
+                        que le permitirá seleccionar el archivo de audio que desea analizar. Una vez que haya
+                        seleccionado el archivo, aparecerá un mensaje de "Resultados del análisis" en el marco
+                        desplazable.</li>
+                    <li>Si desea guardar los datos analizados y las notas agregadas, haga clic en el botón "Guardar
+                        datos". Se abrirá un cuadro de diálogo que le permitirá seleccionar la ubicación y el nombre del
+                        archivo donde se guardarán los datos.</li>
+                    <li>Si necesita ayuda, haga clic en el botón "Ayuda" para acceder a una página de ayuda en línea.
+                    </li>
+                </ol><br>
+                <p>Tenga en cuenta que este programa requiere las siguientes librerías: "os", "warnings", "webbrowser",
+                    "tkinter", "customtkinter", "Analizar" y "LoadingAnimation". Estas librerías deben estar instaladas
+                    en su sistema para que el programa funcione correctamente.</p><br>
+                <p>Si no tiene instaladas las librerías, se adjunta un archivo con éstas. El archivo lleva el nombre
+                    “requirements.txt”. Se puede ejecutar en python como:</p><br>
+                <pre>&gt;pip install -r requirements.txt</pre><br>
+                <p>Ya que el proyecto todavía no está exportado a un ejecutable, se recomienda usar un IDE para la
+                    apertura y visualización correcta del mismo en un entorno virtualizado. De ésta forma es menos
+                    probable que provoque problemas al usar distintos sistemas operativos. Se ha usado PyCharm para el
+                    desarrollo.</p><br><br>
+
+                    <p>Para saber más del proyecto o tener una guía aún más detallada, puedes entrar a la <a href="code/index.html">DOCUMENTACIÓN</a>.</p>
+
             </div>
         </section>
 
@@ -47,36 +71,91 @@
         <section class="projects-page">
             <div class="img"><img src="../imgs/loading.gif" alt="musical analysis project"></div>
             <div class="projects-text-content">
-                <h1>Graphics</h1>
-                <p>Yeah, I can see a lot of colos... But what do they mean?</p>
-                <p></p>
-                <p>Well:</p>
-                <p></p>
-                <a href="https://en.wikipedia.org/wiki/Waveform" alt="wikipedia waveform link">Waveform</a>
+                <h1><a href="https://en.wikipedia.org/wiki/Waveform" alt="wikipedia waveform link">Amplitud de onda</a>
+                </h1>
                 <p>
-                    The waveform of an audio is a graphical representation of the sound signal over time. It shows the amplitude (loudness) of the sound wave on the y-axis and the time on the x-axis. The waveform provides information about the characteristics of the sound such as its frequency, duration, and intensity. The shape of the waveform can also provide clues about the quality of the sound, such as the presence of distortion or noise.</p>
+                    La amplitud de onda de un audio es una representación gráfica de la señal de sonido a lo largo del
+                    tiempo. muestra el amplitud (sonoridad) de la onda de sonido en el eje y y el tiempo en el eje x. La
+                    amplitud de onda
+                    proporciona información sobre las características del sonido, como su frecuencia, duración y
+                    intensidad. La forma de la forma de onda también puede proporcionar pistas sobre la calidad del
+                    sonido, como
+                    la presencia de distorsión o ruido.</p>
                 <p></p>
-                <a href="https://en.wikipedia.org/wiki/Spectrogram" alt="wikipedia melody spectrogram link">Melody spectrogram</a>
-                <p>
-                    A melody spectrogram of an audio is a visual representation of the frequency content of an audio signal over time, with emphasis on the frequency content that corresponds to the pitch of the music. It can be used to identify the pitch of individual notes or chords, and to visualize the overall melodic structure of a piece of music. Melody spectrograms are created by applying a Fourier transform to the audio signal and then mapping the resulting frequency content onto a two-dimensional plot, with time on the x-axis and frequency on the y-axis. Color can be used to represent the amplitude or power of the frequency content at each point in time and frequency.</p>
-                <p></p>
-                <a href="https://en.wikipedia.org/wiki/Constant-Q_transform" alt="wikipedia Constant-Q transform link">Constant-Q transform</a>
-                <p>The Constant-Q Transform (CQT) is a type of Fourier transform used in digital signal processing to analyze audio signals. It is similar to the more commonly used Short-Time Fourier Transform (STFT), but uses a different frequency scale that is more aligned with the way humans perceive sound.
-                </p><p>
-                    The CQT divides the frequency spectrum into a series of logarithmically spaced frequency bins, with each bin having a bandwidth proportional to its center frequency. This means that low-frequency bins are wider than high-frequency bins, reflecting the way that the human ear is more sensitive to changes in pitch at lower frequencies.
-                </p><p>
-                    The CQT is particularly useful for analyzing musical signals, as it can be used to identify musical notes and chords, and to extract features such as spectral harmonics and onset times. It is also used in applications such as speech recognition, noise reduction, and audio compression.
-                    Los rangos de BPM (beats per minute) pueden variar según la fuente y el contexto musical, pero aquí hay una posible clasificación general:
-
-                    Muy lenta: menos de 60 BPM
-                    Lenta: entre 60 y 100 BPM
-                    Normal: entre 100 y 130 BPM
-                    Rápida: entre 130 y 160 BPM
-                    Muy rápida: más de 160 BPM
-                    Es importante tener en cuenta que esta clasificación no es definitiva ni absoluta, y que puede haber canciones que no encajen exactamente en estos rangos o que cambien de tempo a lo largo de la misma canción.
-                </p>
             </div>
         </section>
+
+        <div id="project3"></div>
+        <section class="projects-page">
+            <div class="img"><img src="../imgs/spectrogram.png" alt="musical analysis project"></div>
+            <div class="projects-text-content">
+                <h1><a href="https://en.wikipedia.org/wiki/Spectrogram"
+                        alt="wikipedia melody spectrogram link">Espectrograma de la
+                        melodía</a></h1>
+                <p>
+                    A melody spectrogram of an audio is a visual representation of the frequency content of an audio
+                    signal over time, with emphasis on the frequency content that corresponds to the pitch of the music.
+                    It can be used to identify the pitch of individual notes or chords, and to visualize the overall
+                    melodic structure of a piece of music. Melody spectrograms are created by applying a Fourier
+                    transform to the audio signal and then mapping the resulting frequency content onto a
+                    two-dimensional plot, with time on the x-axis and frequency on the y-axis. Color can be used to
+                    represent the amplitude or power of the frequency content at each point in time and frequency.</p>
+                <p></p>
+            </div>
+        </section>
+
+        <div id="project4"></div>
+        <section class="projects-page">
+            <div class="img"><img src="../imgs/chromagram.png" alt="musical analysis project"></div>
+            <div class="projects-text-content">
+                <h1><a href="https://en.wikipedia.org/wiki/Constant-Q_transform"
+                        alt="wikipedia Constant-Q transform link">Constant-Q transform</a></h1>
+                
+
+                        <p>La Transformada de Constante Q (CQT) es un tipo de transformada de Fourier utilizada en el
+                            procesamiento de señales digitales para analizar señales de audio. Es similar a la Transformada de
+                            Fourier de Tiempo Corto (STFT), que se utiliza con mayor frecuencia, pero utiliza una escala de
+                            frecuencia diferente que está más alineada con la forma en que los humanos perciben el sonido.
+                        </p><br>
+                        <p>La CQT divide el espectro de frecuencia en una serie de bandas de frecuencia espaciadas de forma
+                            logarítmica, siendo que cada banda tiene un ancho de banda proporcional a su frecuencia central.
+                            Esto significa que las bandas de frecuencia baja son más anchas que las bandas de frecuencia alta,
+                            reflejando la forma en que el oído humano es más sensible a los cambios de tono en las frecuencias
+                            más bajas.
+                        </p><br>
+                        <p>La CQT es particularmente útil para analizar señales musicales, ya que se puede utilizar para
+                            identificar notas y acordes musicales, y para extraer características como armónicos espectrales y
+                            tiempos de inicio. También se utiliza en aplicaciones como el reconocimiento de voz, la reducción de
+                            ruido y la compresión de audio.
+                        </p><br><br>
+                        <ol style="margin-left: 70px;">
+                            <li>Muy lenta: menos de 60 BPM</li>
+                            <li>Lenta: entre 60 y 100 BPM</li>
+                            <li>Normal: entre 100 y 130 BPM</li>
+                            <li>Rápida: entre 130 y 160 BPM</li>
+                            <li>Muy rápida: más de 160 BPM</li>
+                        </ol><br>
+                        <p>
+                            Es importante tener en cuenta que esta clasificación no es definitiva ni absoluta, y que puede haber
+                            canciones que no encajen exactamente en estos rangos o que cambien de tempo a lo largo de la misma
+                            canción.
+                        </p>
+            </div>
+        </section>
+
+        <div id="project5"></div>
+        <section class="projects-page">
+            <div class="img"><img src="../imgs/loading.gif" alt="musical analysis project"></div>
+            <div class="projects-text-content">
+                <h1><a href="https://es.wikipedia.org/wiki/Timbre_(acústica)"
+                        alt="wikipedia Constant-Q transform link">Timbre </a><p> </p>y<p> </p><a href="https://es.wikipedia.org/wiki/Tempo"
+                        alt="wikipedia Constant-Q transform link"> Tempo</a></h1>
+
+                        <p>El timbre es una cualidad que caracteriza al sonido. Depende de la cantidad de armónicos que tenga un sonido y de la intensidad de cada uno de ellos. Se trata de una de las cualidades esenciales del sonido junto con el tono, la duración y la intensidad.</p><br><br>
+                        <p>Los términos tempo, movimiento o aire en terminología musical hacen referencia a la velocidad con la que debe ejecutarse una pieza musical. Se trata de una palabra italiana que significa «tiempo». En las partituras de una obra el tempo se suele representar al inicio de la pieza encima del pentagrama.</p>
+            </div>
+        </section>
+
     </main>
     <footer>
         <div class="img"><img src="../imgs/logo.png" alt="image about"></div>
