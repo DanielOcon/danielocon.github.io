@@ -1,0 +1,88 @@
+<html>
+<head>
+<title>Tests.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Tests.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">unittest</span>
+<span class="s0">import </span><span class="s1">os.path</span>
+<span class="s0">import </span><span class="s1">webbrowser</span>
+<span class="s0">import </span><span class="s1">customtkinter </span><span class="s0">as </span><span class="s1">ctk</span>
+<span class="s0">import </span><span class="s1">main</span>
+<span class="s0">from </span><span class="s1">Analizar </span><span class="s0">import </span><span class="s1">Analizar</span>
+<span class="s0">import </span><span class="s1">warnings</span>
+<span class="s0">from </span><span class="s1">tkinter </span><span class="s0">import </span><span class="s1">Tk</span>
+<span class="s0">from </span><span class="s1">LoadingAnimation </span><span class="s0">import </span><span class="s1">LoadingAnimation</span>
+<span class="s0">from </span><span class="s1">unittest.mock </span><span class="s0">import </span><span class="s1">patch</span>
+
+<span class="s1">warnings.filterwarnings(</span><span class="s2">&quot;ignore&quot;</span><span class="s0">, </span><span class="s1">category=ResourceWarning)</span>
+
+
+<span class="s0">class </span><span class="s1">TestAnalizar(unittest.TestCase):</span>
+
+    <span class="s0">def </span><span class="s1">setUp(self):</span>
+        <span class="s3"># Necesario para hacer testing de LoadingAnimation</span>
+        <span class="s1">self.root = Tk()</span>
+        <span class="s1">self.label = ctk.CTkLabel(self.root)</span>
+        <span class="s1">self.analizador = Analizar()</span>
+        <span class="s1">self.animation = LoadingAnimation(self.label)</span>
+        <span class="s3"># Nevesario para hacer testing de Analizar</span>
+        <span class="s1">self.analizar = Analizar()</span>
+        <span class="s3"># Necesario para hacer testing de main</span>
+        <span class="s1">self.analysis_results = </span><span class="s2">&quot;dummy analysis results&quot;</span>
+
+    <span class="s0">def </span><span class="s1">test_analyze_music_with_valid_file(self):</span>
+        <span class="s1">file_path = os.path.join(</span><span class="s2">&quot;example_data&quot;</span><span class="s0">, </span><span class="s2">&quot;Waterflame.wav&quot;</span><span class="s1">)</span>
+        <span class="s1">result = self.analizar.analyze_music(file_path)</span>
+        <span class="s1">self.assertIsNotNone(result)</span>
+
+    <span class="s0">def </span><span class="s1">test_loading_animation_starts_and_stops(self):</span>
+        <span class="s3"># Crear un objeto LoadingAnimation y asegurarse de que se puede instanciar correctamente</span>
+        <span class="s1">loading_animation = LoadingAnimation(self.label)</span>
+
+        <span class="s3"># Iniciar la animación y asegurarse de que se está ejecutando</span>
+        <span class="s1">loading_animation.start()</span>
+        <span class="s1">self.assertTrue(loading_animation.is_alive())</span>
+
+        <span class="s3"># Detener la animación y asegurarse de que se ha detenido correctamente</span>
+        <span class="s1">loading_animation.stop()</span>
+        <span class="s1">loading_animation.join()</span>
+        <span class="s1">self.assertFalse(loading_animation.is_alive())</span>
+
+    <span class="s0">def </span><span class="s1">test_loading_animation_text_updates(self):</span>
+        <span class="s3"># Crear un objeto LoadingAnimation y establecer el texto inicial del label</span>
+        <span class="s1">loading_animation = LoadingAnimation(self.label)</span>
+        <span class="s1">loading_animation.set_label(</span><span class="s2">&quot;analizando&quot;</span><span class="s1">)</span>
+
+        <span class="s3"># Iniciar la animación y comprobar que el texto del label se actualiza correctamente</span>
+        <span class="s1">loading_animation.start()</span>
+        <span class="s1">text = str(self.label.cget(</span><span class="s2">&quot;text&quot;</span><span class="s1">))</span>
+        <span class="s1">self.assertEqual(text.upper()</span><span class="s0">, </span><span class="s2">&quot;analizando&quot;</span><span class="s1">.upper())</span>
+        <span class="s1">loading_animation.stop()</span>
+
+        <span class="s3"># Establecer un nuevo texto para el label sin animación y comprobar que se establece correctamente</span>
+        <span class="s1">loading_animation.set_label(</span><span class="s2">&quot;fin&quot;</span><span class="s1">)</span>
+        <span class="s1">self.assertEqual(self.label.cget(</span><span class="s2">&quot;text&quot;</span><span class="s1">)</span><span class="s0">, </span><span class="s2">&quot;fin&quot;</span><span class="s1">)</span>
+
+    <span class="s1">@patch.object(webbrowser</span><span class="s0">, </span><span class="s2">'open'</span><span class="s1">)</span>
+    <span class="s0">def </span><span class="s1">test_help_web(self</span><span class="s0">, </span><span class="s1">mock_open):</span>
+        <span class="s1">main.help_web()</span>
+        <span class="s1">mock_open.assert_called_once_with(</span><span class="s2">'https://danielocon.github.io/html/help.html'</span><span class="s1">)</span>
+
+
+<span class="s0">if </span><span class="s1">__name__ == </span><span class="s2">'__main__'</span><span class="s1">:</span>
+    <span class="s1">unittest.main()</span>
+</pre>
+</body>
+</html>

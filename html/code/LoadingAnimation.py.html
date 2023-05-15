@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>LoadingAnimation.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6897bb;}
+.s4 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+LoadingAnimation.py</font>
+</center></td></tr></table>
+<pre><span class="s0">from </span><span class="s1">customtkinter </span><span class="s0">import </span><span class="s1">CTkLabel</span>
+<span class="s0">import </span><span class="s1">threading</span>
+
+<span class="s2"># Clase para animar el texto de un CTkLabel</span>
+<span class="s0">class </span><span class="s1">LoadingAnimation(threading.Thread):</span>
+    <span class="s0">def </span><span class="s1">__init__(self</span><span class="s0">, </span><span class="s1">label: CTkLabel):</span>
+        <span class="s1">super().__init__()</span>
+        <span class="s1">self.label = label</span>
+        <span class="s1">self._stop_event = threading.Event()</span>
+
+    <span class="s2"># Función que se ejecuta cuando se inicia la animación</span>
+    <span class="s0">def </span><span class="s1">run(self):</span>
+        <span class="s1">i = </span><span class="s3">0</span>
+        <span class="s0">while not </span><span class="s1">self._stop_event.is_set():</span>
+            <span class="s2"># Texto a animar</span>
+            <span class="s1">texto = </span><span class="s4">&quot;analizando&quot;</span>
+            <span class="s2"># Letra a poner en mayúsculas</span>
+            <span class="s1">letra = texto[i % len(texto)].upper()</span>
+            <span class="s2"># Nuevo texto con la letra en mayúsculas</span>
+            <span class="s1">nuevo_texto = texto[:i % len(texto)] + letra + texto[i % len(texto) + </span><span class="s3">1</span><span class="s1">:]</span>
+            <span class="s2"># Actualizar el texto del label</span>
+            <span class="s1">self.label.configure(text=nuevo_texto)</span>
+            <span class="s1">i += </span><span class="s3">1</span>
+            <span class="s2"># Esperar un tiempo antes de actualizar el texto de nuevo</span>
+            <span class="s1">self._stop_event.wait(</span><span class="s3">0.2</span><span class="s1">)</span>
+
+    <span class="s2"># Función para establecer el texto del label sin animación</span>
+    <span class="s0">def </span><span class="s1">set_label(self</span><span class="s0">, </span><span class="s1">nuevo_texto):</span>
+        <span class="s1">self.label.configure(text=nuevo_texto)</span>
+        <span class="s1">self.label.pack()</span>
+
+    <span class="s2"># Función para detener la animación</span>
+    <span class="s0">def </span><span class="s1">stop(self):</span>
+        <span class="s1">self._stop_event.set()</span>
+</pre>
+</body>
+</html>

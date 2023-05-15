@@ -1,0 +1,140 @@
+<html>
+<head>
+<title>Analizar.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6897bb;}
+.s3 { color: #6a8759;}
+.s4 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Analizar.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">os</span>
+<span class="s0">from </span><span class="s1">tkinter </span><span class="s0">import </span><span class="s1">filedialog</span>
+<span class="s0">import </span><span class="s1">matplotlib.pyplot </span><span class="s0">as </span><span class="s1">plt</span>
+<span class="s0">import </span><span class="s1">librosa</span>
+<span class="s0">import </span><span class="s1">librosa.display</span>
+<span class="s0">import </span><span class="s1">numpy </span><span class="s0">as </span><span class="s1">np</span>
+
+
+<span class="s0">class </span><span class="s1">Analizar():</span>
+
+    <span class="s0">def </span><span class="s1">__init__(self):</span>
+        <span class="s1">self.fig</span><span class="s0">, </span><span class="s1">self.axs = plt.subplots(nrows=</span><span class="s2">3</span><span class="s0">, </span><span class="s1">figsize=(</span><span class="s2">12</span><span class="s0">, </span><span class="s2">6</span><span class="s1">))</span>
+        <span class="s1">self.texto = </span><span class="s3">&quot;&quot;</span>
+
+    <span class="s4"># función que analiza el archivo de audio</span>
+    <span class="s4"># y devuelve un mensaje con los resultados</span>
+    <span class="s0">def </span><span class="s1">analyze_music(self</span><span class="s0">, </span><span class="s1">file_path):</span>
+        <span class="s0">try</span><span class="s1">:</span>
+            <span class="s4"># Carga el archivo de audio y su tasa de muestreo</span>
+            <span class="s1">y</span><span class="s0">, </span><span class="s1">sr = librosa.load(file_path</span><span class="s0">, </span><span class="s1">sr=</span><span class="s0">None</span><span class="s1">)</span>
+
+        <span class="s0">except </span><span class="s1">ValueError:</span>
+            <span class="s4"># Si el formato del archivo no es compatible, muestra un mensaje de error</span>
+            <span class="s1">print(</span><span class="s3">&quot;El formato del archivo no es compatible.&quot;</span><span class="s1">)</span>
+            <span class="s0">return</span>
+
+        <span class="s4"># Extrae la melodía usando los coeficientes cepstrales de frecuencia mel (MFCC)</span>
+        <span class="s1">melody = librosa.feature.mfcc(y=y</span><span class="s0">, </span><span class="s1">sr=sr)</span>
+        <span class="s1">melody_mean = np.mean(melody</span><span class="s0">, </span><span class="s1">axis=</span><span class="s2">1</span><span class="s1">)</span>
+
+        <span class="s4"># Calcula el espectrograma de la señal de audio y utiliza una transformada inversa de Fourier para</span>
+        <span class="s4"># transformar las muestras de señal de audio en el dominio de la frecuencia a espectrogramas de frecuencia</span>
+        <span class="s1">mel_spec = librosa.feature.melspectrogram(y=y</span><span class="s0">, </span><span class="s1">sr=sr)</span>
+
+        <span class="s4"># Extrae el timbre utilizando el croma de la Constant-Q Transform (CQT) y el tonnetz</span>
+        <span class="s1">chroma = librosa.feature.chroma_cqt(y=y</span><span class="s0">, </span><span class="s1">sr=sr)</span>
+        <span class="s1">tonnetz = librosa.feature.tonnetz(y=y</span><span class="s0">, </span><span class="s1">sr=sr)</span>
+
+        <span class="s4"># Extrae el tempo y el momento del pulso de la señal de audio utilizando el algoritmo de detección de tempo de librosa</span>
+        <span class="s1">tempo</span><span class="s0">, </span><span class="s1">beat_frames = librosa.beat.beat_track(y=y</span><span class="s0">, </span><span class="s1">sr=sr)</span>
+
+        <span class="s4"># Calcula el diagrama cromático de las notas</span>
+        <span class="s1">chromagram = librosa.feature.chroma_cqt(y=y</span><span class="s0">, </span><span class="s1">sr=sr)</span>
+
+        <span class="s4"># Calcula el centroide espectral</span>
+        <span class="s1">cent = librosa.feature.spectral_centroid(y=y</span><span class="s0">, </span><span class="s1">sr=sr)</span>
+
+        <span class="s4"># Limpia el primer eje y establece título y etiquetas de los ejes</span>
+        <span class="s1">self.axs[</span><span class="s2">0</span><span class="s1">].clear()</span>
+        <span class="s1">self.axs[</span><span class="s2">0</span><span class="s1">].set(title=</span><span class="s3">'Waveform'</span><span class="s0">, </span><span class="s1">xlabel=</span><span class="s3">'Time (seconds)'</span><span class="s0">, </span><span class="s1">ylabel=</span><span class="s3">'Amplitude'</span><span class="s1">)</span>
+
+        <span class="s4"># Muestra la forma de onda de la música en el primer eje</span>
+        <span class="s1">librosa.display.waveshow(y</span><span class="s0">, </span><span class="s1">sr=sr</span><span class="s0">, </span><span class="s1">ax=self.axs[</span><span class="s2">0</span><span class="s1">]</span><span class="s0">, </span><span class="s1">alpha=</span><span class="s2">0.8</span><span class="s1">)</span>
+
+        <span class="s4"># Limpia el segundo eje y establece título y etiquetas de los ejes</span>
+        <span class="s1">self.axs[</span><span class="s2">1</span><span class="s1">].clear()</span>
+        <span class="s1">self.axs[</span><span class="s2">1</span><span class="s1">].set(title=</span><span class="s3">'Spectrogram (mel)'</span><span class="s0">, </span><span class="s1">xlabel=</span><span class="s3">'Time (seconds)'</span><span class="s0">, </span><span class="s1">ylabel=</span><span class="s3">'Hz'</span><span class="s1">)</span>
+        <span class="s1">librosa.display.specshow(librosa.power_to_db(mel_spec</span><span class="s0">, </span><span class="s1">ref=np.max)</span><span class="s0">, </span><span class="s1">y_axis=</span><span class="s3">'mel'</span><span class="s0">, </span><span class="s1">x_axis=</span><span class="s3">'time'</span><span class="s0">, </span><span class="s1">ax=self.axs[</span><span class="s2">1</span><span class="s1">]</span><span class="s0">,</span>
+                                 <span class="s1">cmap=</span><span class="s3">'magma'</span><span class="s1">)</span>
+
+        <span class="s4"># Limpia el tercer eje y establece título de los ejes</span>
+        <span class="s1">self.axs[</span><span class="s2">2</span><span class="s1">].clear()</span>
+        <span class="s1">self.axs[</span><span class="s2">2</span><span class="s1">].set(title=</span><span class="s3">'Chromagram'</span><span class="s1">)</span>
+
+        <span class="s4"># Muestra un cromagrama de la música en el tercer eje, con escala de colores</span>
+        <span class="s1">librosa.display.specshow(chromagram</span><span class="s0">, </span><span class="s1">sr=sr</span><span class="s0">, </span><span class="s1">x_axis=</span><span class="s3">'time'</span><span class="s0">, </span><span class="s1">y_axis=</span><span class="s3">'chroma'</span><span class="s0">, </span><span class="s1">cmap=</span><span class="s3">'coolwarm'</span><span class="s0">, </span><span class="s1">ax=self.axs[</span><span class="s2">2</span><span class="s1">])</span>
+        <span class="s4"># Agrega una barra de color debaro del gráfico del cromagrama</span>
+        <span class="s1">self.fig.colorbar(self.axs[</span><span class="s2">2</span><span class="s1">].collections[</span><span class="s2">0</span><span class="s1">]</span><span class="s0">, </span><span class="s1">ax=self.axs[</span><span class="s2">2</span><span class="s1">]</span><span class="s0">, </span><span class="s1">location=</span><span class="s3">'bottom'</span><span class="s1">)</span>
+
+        <span class="s4"># Construye un mensaje con la información extraída y la guarda en la variable de instancia &quot;texto&quot;</span>
+        <span class="s1">self.texto = </span><span class="s3">&quot;Archivo escaneado: &quot; </span><span class="s1">+ file_path + </span><span class="s3">&quot;</span><span class="s0">\n\n\n</span><span class="s3">&quot; </span><span class="s1">\</span>
+            <span class="s1">+ </span><span class="s3">&quot;Tempo: </span><span class="s0">\n</span><span class="s3">&quot; </span><span class="s1">+ str(tempo) + </span><span class="s3">&quot;</span><span class="s0">\n\n\n</span><span class="s3">&quot; </span><span class="s1">\</span>
+            <span class="s1">+ </span><span class="s3">&quot;Timbre (Chroma): </span><span class="s0">\n</span><span class="s3">&quot; </span><span class="s1">+ Analizar.array_to_string(self</span><span class="s0">, </span><span class="s1">np.mean(chroma</span><span class="s0">, </span><span class="s1">axis=</span><span class="s2">1</span><span class="s1">)) + </span><span class="s3">&quot;</span><span class="s0">\n\n\n</span><span class="s3">&quot; </span><span class="s1">\</span>
+            <span class="s1">+ </span><span class="s3">&quot;Timbre (Tonnetz): </span><span class="s0">\n</span><span class="s3">&quot; </span><span class="s1">+ Analizar.array_to_string(self</span><span class="s0">, </span><span class="s1">np.mean(tonnetz</span><span class="s0">, </span><span class="s1">axis=</span><span class="s2">1</span><span class="s1">)) + </span><span class="s3">&quot;</span><span class="s0">\n\n\n</span><span class="s3">&quot; </span><span class="s1">\</span>
+            <span class="s1">+ </span><span class="s3">&quot;Momento del pulso(s): </span><span class="s0">\n</span><span class="s3">&quot; </span><span class="s1">+ str(beat_frames) + </span><span class="s3">&quot;</span><span class="s0">\n\n\n</span><span class="s3">&quot; </span><span class="s1">\</span>
+            <span class="s1">+ </span><span class="s3">&quot;Datos del diagrama cromático de las notas: </span><span class="s0">\n</span><span class="s3">&quot; </span><span class="s1">+ Analizar.array_to_string(self</span><span class="s0">, </span><span class="s1">np.mean(chroma</span><span class="s0">, </span><span class="s1">axis=</span><span class="s2">1</span><span class="s1">)) + </span><span class="s3">&quot;</span><span class="s0">\n\n\n</span><span class="s3">&quot; </span><span class="s1">\</span>
+            <span class="s1">+ </span><span class="s3">&quot;Datos del espectrograma de la melodía: </span><span class="s0">\n</span><span class="s3">&quot; </span><span class="s1">+ Analizar.array_to_string(self</span><span class="s0">, </span><span class="s1">np.mean(melody</span><span class="s0">, </span><span class="s1">axis=</span><span class="s2">1</span><span class="s1">)) + </span><span class="s3">&quot;</span><span class="s0">\n\n\n</span><span class="s3">&quot; </span><span class="s1">\</span>
+            <span class="s1">+ </span><span class="s3">&quot;Datos del centroide espectral: </span><span class="s0">\n</span><span class="s3">&quot; </span><span class="s1">+ Analizar.array_to_string(self</span><span class="s0">, </span><span class="s1">np.mean(cent</span><span class="s0">, </span><span class="s1">axis=</span><span class="s2">1</span><span class="s1">)) + </span><span class="s3">&quot;</span><span class="s0">\n\n\n</span><span class="s3">&quot;</span>
+
+        <span class="s1">plt.tight_layout()  </span><span class="s4"># Ajusta la disposición de los elementos en la figura</span>
+        <span class="s1">plt.show()  </span><span class="s4"># Muestra la figura</span>
+
+        <span class="s4"># Devuelve el texto generado por la función &quot;analyze_music&quot;</span>
+        <span class="s0">return </span><span class="s1">self.texto</span>
+
+    <span class="s4"># función que elimina los archivos antiguos en un directorio dado</span>
+    <span class="s0">def </span><span class="s1">delete_old_files(self</span><span class="s0">, </span><span class="s1">dir_path):</span>
+        <span class="s1">files = os.listdir(dir_path)</span>
+        <span class="s1">files = [os.path.join(dir_path</span><span class="s0">, </span><span class="s1">f) </span><span class="s0">for </span><span class="s1">f </span><span class="s0">in </span><span class="s1">files]</span>
+        <span class="s1">files = sorted(files</span><span class="s0">, </span><span class="s1">key=os.path.getctime)</span>
+        <span class="s0">if </span><span class="s1">len(files) &gt; </span><span class="s2">1</span><span class="s1">:</span>
+            <span class="s0">for </span><span class="s1">f </span><span class="s0">in </span><span class="s1">files[:-</span><span class="s2">1</span><span class="s1">]:</span>
+                <span class="s1">os.remove(f)</span>
+
+    <span class="s4"># función que permite al usuario seleccionar un archivo de audio</span>
+    <span class="s0">def </span><span class="s1">choose_file(self):</span>
+        <span class="s1">self.file_path = filedialog.askopenfilename(filetypes=[(</span><span class="s3">&quot;Audio Files&quot;</span><span class="s0">, </span><span class="s3">&quot;*.wav;*.mp3&quot;</span><span class="s1">)])</span>
+        <span class="s0">if </span><span class="s1">self.file_path != </span><span class="s3">&quot;&quot;</span><span class="s1">:</span>
+            <span class="s0">if </span><span class="s1">self.file_path.endswith(</span><span class="s3">'.mp3'</span><span class="s1">) </span><span class="s0">or </span><span class="s1">self.file_path.endswith(</span><span class="s3">'.wav'</span><span class="s1">):</span>
+                <span class="s0">return </span><span class="s1">self.analyze_music(self.file_path)</span>
+            <span class="s0">else</span><span class="s1">:</span>
+                <span class="s0">return </span><span class="s3">&quot;No es un archivo compatible.&quot;</span>
+        <span class="s0">else</span><span class="s1">:</span>
+            <span class="s0">return </span><span class="s3">&quot;No ha seleccionado un archivo válido.&quot;</span>
+
+    <span class="s4"># función que convierte una matriz en una cadena de texto</span>
+    <span class="s0">def </span><span class="s1">array_to_string(self</span><span class="s0">, </span><span class="s1">arr):</span>
+        <span class="s1">result = </span><span class="s3">&quot;&quot;</span>
+        <span class="s0">for </span><span class="s1">i </span><span class="s0">in </span><span class="s1">range(len(arr)):</span>
+            <span class="s1">result += str(arr[i])</span>
+            <span class="s0">if </span><span class="s1">i != len(arr) - </span><span class="s2">1</span><span class="s1">:</span>
+                <span class="s1">result += </span><span class="s3">&quot;, &quot;</span>
+            <span class="s0">if </span><span class="s1">(i + </span><span class="s2">1</span><span class="s1">) % </span><span class="s2">5 </span><span class="s1">== </span><span class="s2">0</span><span class="s1">:</span>
+                <span class="s1">result += </span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">&quot;</span>
+        <span class="s0">return </span><span class="s1">result</span>
+
+
+<span class="s0">if </span><span class="s1">__name__ == </span><span class="s3">&quot;__main__&quot;</span><span class="s1">:</span>
+    <span class="s1">Analizar()</span>
+</pre>
+</body>
+</html>

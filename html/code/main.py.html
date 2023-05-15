@@ -1,0 +1,158 @@
+<html>
+<head>
+<title>main.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6a8759;}
+.s4 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+main.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">os</span>
+<span class="s0">import </span><span class="s1">warnings</span>
+<span class="s0">import </span><span class="s1">webbrowser</span>
+<span class="s0">from </span><span class="s1">tkinter </span><span class="s0">import </span><span class="s1">filedialog</span>
+<span class="s0">import </span><span class="s1">customtkinter </span><span class="s0">as </span><span class="s1">ctk</span>
+<span class="s0">from </span><span class="s1">Analizar </span><span class="s0">import </span><span class="s1">Analizar</span>
+<span class="s0">from </span><span class="s1">LoadingAnimation </span><span class="s0">import </span><span class="s1">LoadingAnimation</span>
+
+
+<span class="s2"># Función que agrega el análisis del archivo de audio seleccionado</span>
+<span class="s0">def </span><span class="s1">add_analisis():</span>
+    <span class="s2"># Crear una animación de carga</span>
+    <span class="s1">animacion = LoadingAnimation(label=title_label)</span>
+    <span class="s1">animacion.start()</span>
+
+    <span class="s2"># Llamar a la función &quot;choose_file&quot; del módulo &quot;Analizar&quot; y obtener los resultados</span>
+    <span class="s1">analysis_results = Analizar.choose_file(self=Analizar())</span>
+
+    <span class="s2"># Crear un nuevo objeto &quot;CTkLabel&quot; con el texto obtenido y agregarlo al &quot;scrollable_frame&quot;</span>
+    <span class="s1">label = ctk.CTkLabel(scrollable_frame</span><span class="s0">, </span><span class="s1">text=analysis_results)</span>
+    <span class="s1">label.pack()</span>
+
+    <span class="s2"># Detener la animación de carga y actualizar la etiqueta de la misma</span>
+    <span class="s1">animacion.stop()</span>
+    <span class="s1">animacion.set_label(</span><span class="s3">&quot;Resultados del análisis:&quot;</span><span class="s1">)</span>
+
+    <span class="s2"># Agregar el texto de la etiqueta a una lista</span>
+    <span class="s1">label_text_list.append(analysis_results)</span>
+
+    <span class="s2"># Limpiar el contenido del widget &quot;entry&quot;</span>
+    <span class="s1">entry.delete(</span><span class="s4">0</span><span class="s0">, </span><span class="s1">ctk.END)</span>
+
+
+<span class="s2"># Esta función guarda los datos analizados en un archivo de texto</span>
+<span class="s0">def </span><span class="s1">save_data():</span>
+    <span class="s2"># Se define la ruta de la carpeta donde se guardarán los datos</span>
+    <span class="s1">dir_path = </span><span class="s3">&quot;data&quot;</span>
+
+    <span class="s2"># Si la carpeta no existe, se crea</span>
+    <span class="s0">if not </span><span class="s1">os.path.exists(dir_path):</span>
+        <span class="s1">os.makedirs(dir_path)</span>
+
+    <span class="s2"># Se abre una ventana para que el usuario seleccione la ubicación y el nombre del archivo</span>
+    <span class="s2"># Se especifica que la extensión por defecto será &quot;.txt&quot;</span>
+    <span class="s2"># y se muestran dos opciones de filtro de archivo en el cuadro de diálogo</span>
+    <span class="s1">file_path = filedialog.asksaveasfilename(defaultextension=</span><span class="s3">&quot;.txt&quot;</span><span class="s0">,</span>
+                                             <span class="s1">filetypes=((</span><span class="s3">&quot;Text files&quot;</span><span class="s0">, </span><span class="s3">&quot;*.txt&quot;</span><span class="s1">)</span><span class="s0">, </span><span class="s1">(</span><span class="s3">&quot;All files&quot;</span><span class="s0">, </span><span class="s3">&quot;*.*&quot;</span><span class="s1">)))</span>
+
+    <span class="s2"># Si se ha seleccionado una ubicación y un nombre de archivo, se procede a guardar los datos</span>
+    <span class="s0">if </span><span class="s1">file_path:</span>
+        <span class="s2"># Se abre el archivo en modo escritura y se especifica la</span>
+        <span class="s0">with </span><span class="s1">open(file_path + </span><span class="s3">'.txt'</span><span class="s0">, </span><span class="s3">'w'</span><span class="s0">, </span><span class="s1">encoding=</span><span class="s3">&quot;utf-8&quot;</span><span class="s1">) </span><span class="s0">as </span><span class="s1">f:</span>
+            <span class="s2"># Se escribe en el archivo los datos contenidos en la lista</span>
+            <span class="s1">f.write(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s1">.join(label_text_list))</span>
+
+
+<span class="s0">def </span><span class="s1">help_web():</span>
+    <span class="s2"># Definir la URL de la página web de ayuda</span>
+    <span class="s1">url = </span><span class="s3">'https://danielocon.github.io/html/help.html'</span>
+
+    <span class="s2"># Abrir la URL en el navegador predeterminado del usuario</span>
+    <span class="s1">webbrowser.open(url)</span>
+
+
+<span class="s2"># Esta función añade una nota</span>
+<span class="s0">def </span><span class="s1">add_nota():</span>
+    <span class="s2"># Obtiene el texto ingresado en la entrada de texto</span>
+    <span class="s1">analysis_results = entry.get()</span>
+
+    <span class="s2"># Crea una etiqueta de la interfaz gráfica de usuario (GUI) y le asigna el texto ingresado</span>
+    <span class="s1">label = ctk.CTkLabel(scrollable_frame</span><span class="s0">, </span><span class="s1">text=analysis_results)</span>
+
+    <span class="s2"># Empaqueta la etiqueta en el marco desplazable</span>
+    <span class="s1">label.pack()</span>
+
+    <span class="s2"># Agrega el texto de la etiqueta a la lista label_text_list</span>
+    <span class="s1">label_text_list.append(analysis_results)</span>
+
+    <span class="s2"># Borra el texto ingresado en la entrada de texto</span>
+    <span class="s1">entry.delete(</span><span class="s4">0</span><span class="s0">, </span><span class="s1">ctk.END)</span>
+
+
+<span class="s0">class </span><span class="s1">App(ctk.CTk):</span>
+    <span class="s2"># es el método constructor de la clase.</span>
+    <span class="s2"># Se llama automáticamente cuando se crea un nuevo objeto de la clase.</span>
+    <span class="s0">def </span><span class="s1">__init__(self):</span>
+        <span class="s2"># super().__init__() llama al constructor de la clase padre (ctk.CTk) para inicializar el objeto.</span>
+        <span class="s1">super().__init__()</span>
+
+
+<span class="s2"># Creación de la ventana principal y título de la aplicación</span>
+<span class="s0">if </span><span class="s1">__name__ == </span><span class="s3">&quot;__main__&quot;</span><span class="s1">:</span>
+    <span class="s2"># Crea una nueva ventana de la aplicación utilizando la biblioteca customtkinter</span>
+    <span class="s1">root = ctk.CTk()</span>
+    <span class="s1">root.geometry(</span><span class="s3">&quot;900x600&quot;</span><span class="s1">)</span>
+    <span class="s1">root.title(</span><span class="s3">&quot;Ocón Análisis Musical&quot;</span><span class="s1">)</span>
+
+    <span class="s2"># Creación de una lista para almacenar las notas</span>
+    <span class="s1">label_text_list = []</span>
+
+    <span class="s2"># Creación de la etiqueta del título</span>
+    <span class="s1">title_label = ctk.CTkLabel(root</span><span class="s0">, </span><span class="s1">text=</span><span class="s3">&quot;Análisis&quot;</span><span class="s0">, </span><span class="s1">font=ctk.CTkFont(size=</span><span class="s4">30</span><span class="s0">, </span><span class="s1">weight=</span><span class="s3">&quot;bold&quot;</span><span class="s1">))</span>
+    <span class="s1">title_label.pack(padx=</span><span class="s4">10</span><span class="s0">, </span><span class="s1">pady=(</span><span class="s4">40</span><span class="s0">, </span><span class="s4">20</span><span class="s1">))</span>
+
+    <span class="s2"># Creación de un frame que permite hacer scroll sobre las notas</span>
+    <span class="s1">scrollable_frame = ctk.CTkScrollableFrame(root</span><span class="s0">, </span><span class="s1">width=</span><span class="s4">750</span><span class="s0">, </span><span class="s1">height=</span><span class="s4">200</span><span class="s1">)</span>
+    <span class="s1">scrollable_frame.pack()</span>
+
+    <span class="s2"># Creación de un campo de entrada para añadir nuevas notas</span>
+    <span class="s1">entry = ctk.CTkEntry(scrollable_frame</span><span class="s0">, </span><span class="s1">placeholder_text=</span><span class="s3">&quot;Añadir nota&quot;</span><span class="s1">)</span>
+    <span class="s1">entry.pack(fill=</span><span class="s3">&quot;x&quot;</span><span class="s1">)</span>
+
+    <span class="s2"># Creación de un botón para iniciar el análisis</span>
+    <span class="s1">analisis_button = ctk.CTkButton(root</span><span class="s0">, </span><span class="s1">text=</span><span class="s3">&quot;Analizar&quot;</span><span class="s0">, </span><span class="s1">width=</span><span class="s4">500</span><span class="s0">, </span><span class="s1">command=add_analisis)</span>
+    <span class="s1">analisis_button.pack(pady=</span><span class="s4">20</span><span class="s1">)</span>
+
+    <span class="s2"># Creación de un botón para añadir nuevas notas</span>
+    <span class="s1">add_button = ctk.CTkButton(root</span><span class="s0">, </span><span class="s1">text=</span><span class="s3">&quot;Añadir nota&quot;</span><span class="s0">, </span><span class="s1">width=</span><span class="s4">500</span><span class="s0">, </span><span class="s1">command=add_nota)</span>
+    <span class="s1">add_button.pack(pady=</span><span class="s4">10</span><span class="s1">)</span>
+
+    <span class="s2"># Creación de un frame para los botones de guardar datos y ayuda</span>
+    <span class="s1">button_frame = ctk.CTkFrame(root)</span>
+    <span class="s1">button_frame.pack()</span>
+
+    <span class="s2"># Creación de un botón para guardar los datos</span>
+    <span class="s1">save_button = ctk.CTkButton(button_frame</span><span class="s0">, </span><span class="s1">text=</span><span class="s3">&quot;Guardar Datos&quot;</span><span class="s0">, </span><span class="s1">width=</span><span class="s4">250</span><span class="s0">, </span><span class="s1">command=save_data)</span>
+    <span class="s1">save_button.pack(side=</span><span class="s3">&quot;left&quot;</span><span class="s0">, </span><span class="s1">padx=</span><span class="s4">10</span><span class="s0">, </span><span class="s1">pady=</span><span class="s4">20</span><span class="s1">)</span>
+
+    <span class="s2"># Creación de un botón para abrir la ayuda en una página web</span>
+    <span class="s1">help_button = ctk.CTkButton(button_frame</span><span class="s0">, </span><span class="s1">text=</span><span class="s3">&quot;Ayuda&quot;</span><span class="s0">, </span><span class="s1">width=</span><span class="s4">250</span><span class="s0">, </span><span class="s1">command=help_web)</span>
+    <span class="s1">help_button.pack(side=</span><span class="s3">&quot;left&quot;</span><span class="s0">, </span><span class="s1">padx=</span><span class="s4">10</span><span class="s0">, </span><span class="s1">pady=</span><span class="s4">20</span><span class="s1">)</span>
+
+    <span class="s2"># Ignorar las advertencias</span>
+    <span class="s1">warnings.filterwarnings(</span><span class="s3">&quot;ignore&quot;</span><span class="s1">)</span>
+
+    <span class="s2"># Ejecución del loop principal de la aplicación</span>
+    <span class="s1">root.mainloop()</span>
+</pre>
+</body>
+</html>
